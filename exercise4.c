@@ -30,7 +30,7 @@ int main(int argc, char** argv)
     return 0;
   }
   printf("Practice number 1, section 4\n");
-  printf("Done by: your names\n");
+  printf("Done by: Ivan Reyero y Jorge Torrijos\n");
   printf("Group: Your group\n");
 
   /* check command line */
@@ -52,7 +52,7 @@ int main(int argc, char** argv)
   ret =InsertSort(perm, 0, tamano-1);
 
   if (ret == ERR) {
-    printf("Error: Error in BubbleSort\n");
+    printf("Error: Error in Insertsort\n");
     free(perm);
     exit(-1);
   }
