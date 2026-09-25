@@ -44,7 +44,17 @@ def dataprep_rle(n):
 
 # I.A.2 Búsqueda de duplicados manteniendo orden de aparición
 def find_duplicates(lst):
-    pass
+
+    temp = []
+    final_l = []
+
+    for i in lst:
+        if i in temp and i not in final_l:
+            final_l.append(i)
+        elif i not in temp:
+            temp.append(i)
+
+    return final_l
 
 
 # I.A.3 Búsqueda de par que suma target con complejidad O(n)
