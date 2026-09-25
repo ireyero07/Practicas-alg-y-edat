@@ -59,15 +59,17 @@ int random_num(int inf, int sup)
 /* that contains the permitation                   */
 /* or NULL in case of error                        */
 /***************************************************/
-int* generate_perm(int N)
+int *generate_perm(int N)
 {
-  int *perm, i, rand_idx, temp;
+  int *perm;
+  int i, j, aux;
 
   if (N <= 0) {
-      return NULL;
+    return NULL;
   }
 
-  perm = (int *) malloc(N * sizeof(int));
+  perm = (int *)malloc(N * sizeof(int));
+
   if (perm == NULL) {
     return NULL;
   }
@@ -77,19 +79,19 @@ int* generate_perm(int N)
   }
 
   for (i = 0; i < N; i++) {
-    rand_idx = random_num(i, N - 1);
-        
-    if (rand_idx < 0) {
-      free(perm); 
+    j = random_num(i, N - 1);
+
+    if (j == ERR) {
+      free(perm);
       return NULL;
     }
 
-    temp = perm[i];
-    perm[i] = perm[rand_idx];
-    perm[rand_idx] = temp;
-  }
+    aux = perm[i];
+    perm[i] = perm[j];
+    perm[j] = aux;
+    }
 
-  return perm;
+    return perm;
 }
 
 /***************************************************/
@@ -109,5 +111,33 @@ int* generate_perm(int N)
 /***************************************************/
 int** generate_permutations(int n_perms, int N)
 {
-/* your code */
+  int **permutations;
+  int i, j;
+
+  if (n_perms <= 0 || N <= 0) {
+    return NULL;
+  }
+
+  permutations = (int **)malloc(n_perms * sizeof(int *));
+
+  if (permutations == NULL) {
+    return NULL;
+  }
+
+  for (i = 0; i < n_perms; i++) {
+    permutations[i] = generate_perm(N);
+
+    if (permutations[i] == NULL) {
+
+      for (j = 0; j < i; j++) {
+        free(permutations[j]);
+      }
+
+      free(permutations);
+
+      return NULL;
+    }
+  }
+
+  return permutations;
 }
