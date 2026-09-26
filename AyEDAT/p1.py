@@ -59,11 +59,16 @@ def find_duplicates(lst):
 
 # I.A.3 Búsqueda de par que suma target con complejidad O(n)
 def has_sum_pair(par):
-    """Dada una tupla (lst, target), devuelve True si existen dos elementos
-    distintos en lst que sumen target; de lo contrario devuelve False.
-    """
     lst, target = par
-    pass
+    seen = ()
+
+    for i in lst:
+        compl = target - i
+        if compl in seen:
+            return True
+        seen.add(i)
+
+    return False
 
 # I.B.1 RLE Naive / Ingenuo
 def rle_encode_naive(lst):
