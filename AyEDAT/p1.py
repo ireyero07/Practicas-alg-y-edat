@@ -25,22 +25,30 @@ def time_measure(f, dataprep, Nlist, Nrep=1000, Nstat=100):
     return res
 
 def dataprep_sum_pair_hit(n):
-    """Genera un caso donde SÍ existe un par que suma target.
-    Devuelve una tupla (lista, target)
-    """
-    pass
+    if n < 2:
+        return [1], 3
+
+    lst = list(range(1, n + 1))
+    target = n + (n - 1)
+
+    return lst, target
 
 def dataprep_sum_pair_miss(n):
-    """Genera un caso donde NO existe ningún par (Caso peor).
-    Devuelve una tupla (lista, target)
-    """
-    pass
+    lst = list(range(1, n + 1))
+    target = 2 * n + 1
+
+    return lst, target
 
 def dataprep_rle(n):
-    """Genera una lista con rachas repetidas de dimensión n.
-    Devuelve una lista.
-    """
-    pass
+    if n <= 0:
+        return []
+
+    lst = []
+
+    for i in range(n):
+        lst.append(i // 3)
+
+    return lst
 
 # I.A.2 Búsqueda de duplicados manteniendo orden de aparición
 def find_duplicates(lst):
@@ -60,7 +68,7 @@ def find_duplicates(lst):
 # I.A.3 Búsqueda de par que suma target con complejidad O(n)
 def has_sum_pair(par):
     lst, target = par
-    seen = ()
+    seen = set()
 
     for i in lst:
         compl = target - i
@@ -72,13 +80,45 @@ def has_sum_pair(par):
 
 # I.B.1 RLE Naive / Ingenuo
 def rle_encode_naive(lst):
-    """Codificación RLE utilizando operador + concatenador de listas."""
-    pass
+    resultado = []
+    elem_actual = lst[0]
+    contador = 1
+
+    if len(lst) == 0:
+        return []
+
+    for elem in lst[1:]:
+        if elem == elem_actual:
+            contador += 1
+        else:
+            resultado = resultado + [(elem_actual, contador)]
+            elem_actual = elem
+            contador = 1
+
+    resultado = resultado + [(elem_actual, contador)]
+
+    return resultado
 
 # I.B.2 RLE Optimized / Óptimo
 def rle_encode_optimized(lst):
-    """Codificación RLE optimizada usando append in-place."""
-    pass
+    if len(lst) == 0:
+        return []
+
+    resultado = []
+    elem_actual = lst[0]
+    contador = 1
+
+    for elem in lst[1:]:
+        if elem == elem_actual:
+            contador += 1
+        else:
+            resultado.append((elem_actual, contador))
+            elem_actual = elem
+            contador = 1
+
+    resultado.append((elem_actual, contador))
+
+    return resultado
 
 # Función auxiliar para generar una gráfica de una serie de datos.
 def plot_single_curve(
